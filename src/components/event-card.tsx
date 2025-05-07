@@ -13,14 +13,14 @@ export default function EventCard({ event }: EventCardProps) {
     >
       <section
         className="w-full h-full relative flex flex-col bg-white/[2%] rounded-xl overflow-hidden
-    hover:scale-105 active:scale-[1.02] transition"
+               state-effects"
       >
         <Image
           src={event.imageUrl}
           alt={event.name}
           width={500}
           height={300}
-          className="h-[50%] object-fit rounded-lg overflow-hidden"
+          className="h-[50%] object-cover rounded-lg overflow-hidden"
         />
 
         <div className="flex flex-col flex-1 justify-center items-center">
