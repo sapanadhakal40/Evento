@@ -1,3 +1,4 @@
+import EventsList from "@/components/event-list";
 import H1 from "@/components/h1";
 import { EventoEvent } from "@/lib/types";
 type EventsPageProps = {
@@ -20,11 +21,7 @@ export default async function EventsPage({ params }: EventsPageProps) {
         {city !== "all" &&
           `Events in ${city.charAt(0).toUpperCase() + city.slice(1)}`}
       </H1>
-      {events.map((event) => (
-        <section key={event.id} className="text-sm">
-          {event.name}
-        </section>
-      ))}
+      <EventsList events={events} />
     </main>
   );
 }
