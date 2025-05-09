@@ -4,11 +4,12 @@ import { getEvents } from "@/lib/utils";
 
 type EventsListProps = {
   city: string;
+  page: number;
 };
 
-export default async function EventsList({ city }: EventsListProps) {
+export default async function EventsList({ city, page }: EventsListProps) {
   // await sleep(2000);
-  const events = await getEvents(city);
+  const events = await getEvents(city, page);
   // console.log(events);
   return (
     <section className="max-w-[1100px] flex flex-wrap gap-10 justify-center px-[20px] relative">
