@@ -1,21 +1,28 @@
 import EventCard from "./event-card";
 import { getEvents } from "@/lib/utils";
+import PaginationControls from "./pagination-controls";
 // import { sleep } from "@/lib/utils";
 
 type EventsListProps = {
   city: string;
-  page: number;
+  page?: number;
 };
 
-export default async function EventsList({ city, page }: EventsListProps) {
+export default async function EventsList({ city, page = 1 }: EventsListProps) {
   // await sleep(2000);
-  const events = await getEvents(city, page);
-  // console.log(events);
+  const { events, totalCount } = await getEvents(city, page);
+
+  const previousPath = page > 1 ? `/events/${city}?page=${page - 1}` : "";
+  const nextPath =
+    totalCount > 6 * page ? `/events/${city}?page=${page + 1}` : "";
+
   return (
-    <section className="max-w-[1100px] flex flex-wrap gap-10 justify-center px-[20px] relative">
+    <section className="max-w-[1100px] flex flex-wrap gap-10 justify-center px-[20px]">
       {events.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}
+
+      <PaginationControls previousPath={previousPath} nextPath={nextPath} />
     </section>
   );
 }
