@@ -1,6 +1,7 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { PrismaClient } from "@prisma/client";
+import NotFound from "@/app/not-found";
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,9 @@ export async function getEvents(city: string) {
     where: {
       city: city === "all" ? undefined : capitalize(city),
     },
+    orderBy: {
+      date: "asc",
+    },
   });
   return events;
 }
@@ -33,6 +37,10 @@ export async function getEvent(slug: string) {
       slug: slug,
     },
   });
+
+  if (!event) {
+    return NotFound();
+  }
   return event;
 }
 
