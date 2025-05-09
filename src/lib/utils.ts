@@ -1,7 +1,7 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { PrismaClient } from "@prisma/client";
-import NotFound from "@/app/not-found";
+import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -57,7 +57,7 @@ export async function getEvent(slug: string) {
   });
 
   if (!event) {
-    return NotFound();
+    return notFound();
   }
   return event;
 }
