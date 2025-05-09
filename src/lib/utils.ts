@@ -19,7 +19,8 @@ export async function sleep(ms: number) {
   });
 }
 
-export async function getEvents(city: string) {
+export async function getEvents(city: string, page = 1) {
+  //default value
   const events = await prisma.eventoEvent.findMany({
     where: {
       city: city === "all" ? undefined : capitalize(city),
@@ -27,6 +28,8 @@ export async function getEvents(city: string) {
     orderBy: {
       date: "asc",
     },
+    take: 6,
+    skip: (page - 1) * 6,
   });
   return events;
 }
