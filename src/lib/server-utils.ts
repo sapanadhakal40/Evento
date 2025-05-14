@@ -10,7 +10,13 @@ export const getEvents = unstable_cache(async (city: string, page = 1) => {
   //default value
   const events = await prisma.eventoEvent.findMany({
     where: {
-      city: city === "all" ? undefined : capitalize(city),
+      city:
+        city === "all"
+          ? undefined
+          : {
+              mode: "insensitive",
+              equals: capitalize(city),
+            },
     },
     orderBy: {
       date: "asc",
@@ -25,7 +31,10 @@ export const getEvents = unstable_cache(async (city: string, page = 1) => {
   } else {
     totalCount = await prisma.eventoEvent.count({
       where: {
-        city: capitalize(city),
+        city: {
+          mode: "insensitive",
+          equals: capitalize(city),
+        },
       },
     });
   }
